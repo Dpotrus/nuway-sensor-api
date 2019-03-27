@@ -45,7 +45,7 @@ public class RoomControllerTest {
     }
 
     @Test(expected = NestedServletException.class)
-    public void testDuplicateAdd() throws Exception{
+    public void testDuplicateAdd() throws Exception {
         testAddRoom();
 
         Room room = new Room();
