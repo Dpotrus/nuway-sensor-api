@@ -5,18 +5,67 @@ You can also return a snapshot of a room's state, and the devices that are in it
 
 To build project and run tests run ```mvn clean install -U```.
 
-## Add a device 
 
-To add a device, make a POST request to..
+## Example flow
 
-## Add a device state
+### Add a device 
 
-To add a device state, make a POST request to..
+To add a device, make a POST request to the url "/device".
 
-## Add a room
+Example payload:
 
-To add a room, make a POST request to..
+```
+ {
+ "id" : 1,
+ "name": "Thermostat"
+ }
+```
 
-## Fetch a snapshot of the state of the room
+### Add a device state
 
-To fetch a snapshot of a room, make a GET request to..
+To add a device state, make a POST request to the url "/device-state"
+
+Example payload:
+```
+{
+	"deviceId" : 1,
+	"value": 38.2
+}
+```
+
+### Add a room, and a device to a room
+
+To add a room, make a POST request to "/room"
+
+Example payload:
+```
+{
+	"id" : 1,
+	"name": "ThermoRoom",
+	"domain": "Stockholm",
+	"deviceList": []
+}
+```
+
+To add a device to a specific room, make a POST request to "/room/{roomId}/device/{deviceId}",
+where {roomId} is the id of the room in which you want to put the device and {deviceId} is the id of the device to put into the room.
+
+### Fetch a snapshot of the state of the room
+
+To fetch a snapshot of a room, make a GET request to "/room/{id}", where {id} is the id of the room which you want the snapshot of.
+By following the above flow, you should get this as an example of a response:
+
+```
+{
+    "roomId": 1,
+    "roomName": "ThermoRoom",
+    "roomDomain": "Stockholm",
+    "deviceStates": [
+        {
+            "deviceId": 1,
+            "deviceName": "Thermostat",
+            "value": "38.2"
+        }
+    ]
+}
+```
