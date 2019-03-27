@@ -46,22 +46,34 @@ public class RoomControllerTest {
 
     @Test(expected = NestedServletException.class)
     public void testDuplicateAdd() throws Exception {
-        testAddRoom();
-
-        Room room = new Room();
-        room.setId(1);
-        room.setName("Vardagsrummet");
-        room.setDomain("Stockholm");
-        room.setDeviceList(new ArrayList<>());
+        Room room1 = new Room();
+        room1.setId(1);
+        room1.setName("Vardagsrummet");
+        room1.setDomain("Stockholm");
+        room1.setDeviceList(new ArrayList<>());
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        String val = objectMapper.writeValueAsString(room);
+        String val1 = objectMapper.writeValueAsString(room1);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/room")
-                .content(val)
+                .content(val1)
                 .contentType(MediaType.APPLICATION_JSON_UTF8));
+
+        Room room2 = new Room();
+        room2.setId(1);
+        room2.setName("Vardagsrummet");
+        room2.setDomain("Stockholm");
+        room2.setDeviceList(new ArrayList<>());
+
+        String val2 = objectMapper.writeValueAsString(room2);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/room")
+                .content(val2)
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }

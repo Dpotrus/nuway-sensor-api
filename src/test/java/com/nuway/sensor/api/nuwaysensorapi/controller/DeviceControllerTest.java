@@ -41,17 +41,25 @@ public class DeviceControllerTest {
     @Test(expected = NestedServletException.class)
     public void testAddDuplicateDevice() throws Exception {
 
-        testAddDevice();
-
-        Device device = new Device(1, "Termostat");
+        Device device1 = new Device(2, "Duplicate Device");
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        String val = objectMapper.writeValueAsString(device);
+        String val1 = objectMapper.writeValueAsString(device1);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/device")
-                .content(val)
+                .content(val1)
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        Device device2 = new Device(2, "Duplicate Device");
+
+        String val2 = objectMapper.writeValueAsString(device2);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/device")
+                .content(val2)
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
