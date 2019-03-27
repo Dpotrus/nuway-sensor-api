@@ -5,13 +5,13 @@ import com.nuway.sensor.api.nuwaysensorapi.model.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class RoomDao {
 
-    private Map<Integer, Room> rooms = new HashMap<>();
+    private Map<Integer, Room> rooms = new ConcurrentHashMap<>();
     private DeviceDao deviceDao;
 
     @Autowired

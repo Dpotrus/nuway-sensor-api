@@ -3,13 +3,13 @@ package com.nuway.sensor.api.nuwaysensorapi.dao;
 import com.nuway.sensor.api.nuwaysensorapi.model.DeviceStateInput;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class DeviceStateDao {
 
-    private Map<Integer, String> sensorState = new HashMap<>();
+    private Map<Integer, String> sensorState = new ConcurrentHashMap<>();
 
     public void saveState(DeviceStateInput deviceStateInput) {
         sensorState.put(deviceStateInput.getDeviceId(), deviceStateInput.getValue());
