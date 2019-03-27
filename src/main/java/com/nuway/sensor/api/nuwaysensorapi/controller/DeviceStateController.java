@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/sensor")
+@RequestMapping("/device-state")
 public class DeviceStateController {
 
     private DeviceStateDao deviceStateDao;
@@ -19,7 +19,7 @@ public class DeviceStateController {
         this.deviceStateDao = deviceStateDao;
     }
 
-    @PostMapping(value = "/state")
+    @PostMapping
     public void addState(@RequestBody DeviceStateInput deviceStateInput) {
         deviceStateDao.saveState(deviceStateInput);
     }
