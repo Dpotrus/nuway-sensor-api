@@ -16,8 +16,8 @@ Example payload:
 
 ```
  {
- "id" : 1,
- "name": "Thermostat"
+     "id" : 1,
+     "name": "Thermostat"
  }
 ```
 
@@ -49,6 +49,9 @@ Example payload:
 
 To add a device to a specific room, make a POST request to "/room/{roomId}/device/{deviceId}",
 where {roomId} is the id of the room in which you want to put the device and {deviceId} is the id of the device to put into the room.
+
+For example, add the above device with id 1 to the room with id 1 by making a POST to:
+"/room/1/device/1".
 
 ### Fetch a snapshot of the state of the room
 
